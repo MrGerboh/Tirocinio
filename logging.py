@@ -15,7 +15,8 @@ def main():
     for arg, val in arguments:
         #print(f"arg: {arg}, val: {val}")
         os.chdir(val)
-        os.system('git --no-pager log > log.txt')
+        #os.system('git --no-pager log -p > log.txt')
+        os.system(f'git --no-pager log -p --pretty=%h»¦«%s»¦«%aN»¦«%aD -- {val}\logging.py > log.txt')
 
 if __name__ == '__main__':
     main()

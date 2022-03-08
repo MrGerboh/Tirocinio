@@ -1,29 +1,46 @@
-commit 16bf45929dc186fea5f417d7bb55b96c5ad17ff7
-Author: gwatch <gwatch@example.com>
-Date:   Tue Mar 8 11:13:54 2022 +0100
+edd6e45»¦«Creates a file with log informations»¦«MrGerboh»¦«Tue, 8 Mar 2022 12:11:09 +0100
 
-    gwatch auto-commit
+diff --git a/logging.py b/logging.py
+index d68ac69..06c36b7 100644
+--- a/logging.py
++++ b/logging.py
+@@ -1,2 +1,21 @@
+-﻿import os
+-import sys
+\ No newline at end of file
++﻿import getopt
++import os
++import sys
++
++def main():
++    argv = sys.argv[1:]
++    try:
++        arguments, values = getopt.getopt(argv, 'd:')
++    except getopt.error:
++        print("Can't parse the arguments\nusage: logging.py -d <list of directories>")
++        sys.exit(2)
++    if len(arguments) == 0:
++        print("usage: logging.py -d <list of directories>")
++        sys.exit(2)
++    for arg, val in arguments:
++        #print(f"arg: {arg}, val: {val}")
++        os.chdir(val)
++        os.system('git --no-pager log > log.txt')
++
++if __name__ == '__main__':
++    main()
+16bf459»¦«gwatch auto-commit»¦«gwatch»¦«Tue, 8 Mar 2022 11:13:54 +0100
 
-commit 0862a8f77a751ca230f9354b6ebcd47ba70c36f3
-Author: MrGerboh <gervasio.1883259@studenti.uniroma1.it>
-Date:   Tue Mar 8 11:10:05 2022 +0100
+diff --git a/logging.py b/logging.py
+index e69de29..d68ac69 100644
+--- a/logging.py
++++ b/logging.py
+@@ -0,0 +1,2 @@
++﻿import os
++import sys
+\ No newline at end of file
+0862a8f»¦«initial commit»¦«MrGerboh»¦«Tue, 8 Mar 2022 11:10:05 +0100
 
-    initial commit
-
-commit 4055eb8153505ec313da29906819b304a56429a7
-Author: MrGerboh <61619629+MrGerboh@users.noreply.github.com>
-Date:   Tue Mar 8 11:01:44 2022 +0100
-
-    Update README.md
-
-commit 4e2072b1c879518f83671f0f54749b44e56352c5
-Author: MrGerboh <61619629+MrGerboh@users.noreply.github.com>
-Date:   Tue Mar 8 11:00:43 2022 +0100
-
-    Update README.md
-
-commit d411e6dff1bece72c9a3b92043748bccb4b0199c
-Author: MrGerboh <61619629+MrGerboh@users.noreply.github.com>
-Date:   Tue Mar 8 10:59:23 2022 +0100
-
-    Initial commit
+diff --git a/logging.py b/logging.py
+new file mode 100644
+index 0000000..e69de29
