@@ -1,9 +1,13 @@
-0862a8f»¦«initial commit»¦«MrGerboh»¦«Tue, 8 Mar 2022 11:10:05 +0100
+
+
+«0862a8f»¦«initial commit»¦«MrGerboh»¦«Tue, 8 Mar 2022 11:10:05 +0100»
 
 diff --git a/logging.py b/logging.py
 new file mode 100644
 index 0000000..e69de29
-16bf459»¦«gwatch auto-commit»¦«gwatch»¦«Tue, 8 Mar 2022 11:13:54 +0100
+
+
+«16bf459»¦«gwatch auto-commit»¦«gwatch»¦«Tue, 8 Mar 2022 11:13:54 +0100»
 
 diff --git a/logging.py b/logging.py
 index e69de29..d68ac69 100644
@@ -13,7 +17,9 @@ index e69de29..d68ac69 100644
 +﻿import os
 +import sys
 \ No newline at end of file
-edd6e45»¦«Creates a file with log informations»¦«MrGerboh»¦«Tue, 8 Mar 2022 12:11:09 +0100
+
+
+«edd6e45»¦«Creates a file with log informations»¦«MrGerboh»¦«Tue, 8 Mar 2022 12:11:09 +0100»
 
 diff --git a/logging.py b/logging.py
 index d68ac69..06c36b7 100644
@@ -44,7 +50,9 @@ index d68ac69..06c36b7 100644
 +
 +if __name__ == '__main__':
 +    main()
-4ed1b24»¦«The log file only keeps track of logging.py»¦«MrGerboh»¦«Tue, 8 Mar 2022 12:40:50 +0100
+
+
+«4ed1b24»¦«The log file only keeps track of logging.py»¦«MrGerboh»¦«Tue, 8 Mar 2022 12:40:50 +0100»
 
 diff --git a/logging.py b/logging.py
 index 06c36b7..e31e3fc 100644
@@ -57,6 +65,41 @@ index 06c36b7..e31e3fc 100644
 -        os.system('git --no-pager log > log.txt')
 +        #os.system('git --no-pager log -p > log.txt')
 +        os.system(f'git --no-pager log -p --pretty=%h»¦«%s»¦«%aN»¦«%aD -- {val}\logging.py > log.txt')
+ 
+ if __name__ == '__main__':
+     main()
+
+
+«7481854»¦«logging.py now creates a different log file for each directory»¦«MrGerboh»¦«Tue, 8 Mar 2022 16:10:44 +0100»
+
+diff --git a/logging.py b/logging.py
+index e31e3fc..3f2458f 100644
+--- a/logging.py
++++ b/logging.py
+@@ -1,6 +1,9 @@
+ ﻿import getopt
+ import os
+ import sys
++import ntpath
++
++PROGRAM = '\logging.py'
+ 
+ def main():
+     argv = sys.argv[1:]
+@@ -13,10 +16,13 @@ def main():
+         print("usage: logging.py -d <list of directories>")
+         sys.exit(2)
+     for arg, val in arguments:
+-        #print(f"arg: {arg}, val: {val}")
++        head, tail = ntpath.split(val)
++        if tail == "":
++            tail = ntpath.basename(head)
+         os.chdir(val)
+-        #os.system('git --no-pager log -p > log.txt')
+-        os.system(f'git --no-pager log -p --pretty=%h»¦«%s»¦«%aN»¦«%aD -- {val}\logging.py > log.txt')
++        os.system(f'git --no-pager log -p --pretty=%h»¦«%s»¦«%aN»¦«%aD --reverse -- {val}{PROGRAM} > log{tail}.txt')
++        os.system(f'gitk {val}{PROGRAM}')
++    print("Done!")
  
  if __name__ == '__main__':
      main()
